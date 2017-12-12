@@ -1,0 +1,7 @@
+---
+- name: "Generate juseppe certificate"
+  include: "gen-cert.yml"
+
+- name: "Run juseppe container"
+  include: "run-container.yml"
+

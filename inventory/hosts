@@ -1,0 +1,7 @@
+[jenkins-master]
+master ansible_connection=local
+
+[jenkins-salves]
+
+[juseppe:children]
+jenkins-master

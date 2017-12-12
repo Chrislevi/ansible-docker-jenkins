@@ -1,0 +1,14 @@
+---
+- name: "Run Master container"
+  docker_container:
+    name: "jenkins_master"
+    image: "jenkins/jenkins:lts"
+    state: started
+    restart_policy: always
+    restart: yes
+    ports:
+    - 8080:8080
+    - 55555:55555
+    env:
+      JENKINS_VERSION: 2.75
+      JENKINS_UC:

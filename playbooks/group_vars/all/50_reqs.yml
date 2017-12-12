@@ -1,0 +1,2 @@
+binaries:
+  - {url: "http://pkg.jenkins-ci.org/debian/binary/jenkins_{{ jenkins_version }}_all.deb", name: "jenkins_{{ jenkins_version }}_all.deb", md5: "8a4e8df4feb1c6a7c45a76e8a44be664", sha256: "f2c2597c7d983b0bb454a89c64028361046e05c28847c08deb51fd3307343af9"}
