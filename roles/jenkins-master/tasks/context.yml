@@ -1,0 +1,46 @@
+---
+- name: "Copy context files"
+  copy:
+    src: "{{ item }}"
+    dest: "{{ context_dir }}/"
+    mode: "u=rwx,g=rx,o=rx"
+ #   owner: "{{ jenkins_user }}"
+ #   group: "{{ jenkins_group }}"
+  with_items:
+  - "material-amber.css"
+  - "org.codefirst.SimpleThemeDecorator.xml"
+  - "theme.js"
+
+- name: "Deploy context templates"
+  template:
+    src: "{{ item }}.j2"
+    dest: "{{ context_dir }}/{{ item }}"
+    mode: "u=rwx,g=rx,o=rx"
+  #  owner: "{{ jenkins_user }}"
+  #  group: "{{ jenkins_group }}"
+  with_items:
+  - "Dockerfile"
+  - "init.groovy"
+  - "plugins.txt"
+
+- name: "Create job dirs"
+  file:
+    path: "{{ context_dir }}/jobs/{{ item.job_name }}"
+    state: directory
+  with_items:
+  - "{{ github_jobs }}"
+  loop_control:
+    label: "Job: {{ item.job_name }}"
+
+- name: "Deploy job configs"
+  template:
+    src: "github-pipeline.xml.j2"
+    dest: "{{ context_dir }}/jobs/{{ job.job_name }}/config.xml"
+  loop_control:
+    loop_var: job
+    label: "Job: {{ job.job_name }}"
+  with_items:
+  - "{{ github_jobs }}"
+  tags:
+  - jobs
+

@@ -1,0 +1,34 @@
+FROM jenkins/jenkins:{{ jenkins_version }}
+
+ARG user="{{ jenkins_user }}"
+ARG group="{{ jenkins_group }}"
+ARG http_port="{{ jenkins_port }}"
+ARG agent_port="{{ jenkins_slave_port }}"
+ARG jenkins_home="{{ jenkins_home }}"
+ARG jenkins_version="{{ jenkins_version }}"
+
+ENV JENKINS_UC {{ jenkins_uc }}
+ENV JENKINS_HOME ${jenkins_home}
+ENV JENKINS_SLAVE_AGENT_PORT ${agent_port}
+ENV JAVA_OPTS {{ jenkins_java_args }}
+
+COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/init.groovy
+COPY --chown=jenkins:jenkins jobs  ${JENKINS_HOME}/jobs
+
+# Jenkins Theme
+COPY --chown=jenkins:jenkins material-amber.css ${JENKINS_HOME}/userContent/
+COPY --chown=jenkins:jenkins theme.js ${JENKINS_HOME}/userContent/
+COPY --chown=jenkins:jenkins org.codefirst.SimpleThemeDecorator.xml ${JENKINS_HOME}/
+
+# Install plugins
+COPY plugins.txt ./plugins.txt
+RUN cat plugins.txt | xargs install-plugins.sh
+
+USER root
+RUN apt-get update && apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg2 \
+    software-properties-common
+USER jenkins

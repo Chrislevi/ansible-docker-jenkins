@@ -4,10 +4,21 @@
     name: "{{ juseppe_plugin_cache_dir }}"
     state: directory
 
+# Downloads all latest plugins to jenkins_version
 - name: "Download Plugins"
-  shell: "cd {{ juseppe_plugin_cache_dir }} ; wget -S --no-check-certificate \
+  shell: "cd {{ juseppe_plugin_cache_dir }} ; wget -r -nd -A '*.hpi' -S --no-check-certificate \
          --retry-connrefused --waitretry=1 --connect-timeout=5 --read-timeout=5 \
          --dns-timeout=30 -t 5 -c --verbose \
-         {{ plugin_url |d('https://updates.jenkins-ci.org') }}/download/plugins/{{ item.name }}/{{ item.version }}/{{ item.name }}.{{ item.extention | d('hpi') }}"
-  with_items:
-  - "{{ plugins }}"
+         {{ plugin_url |d('https://updates.jenkins.io') }}/{{ jenkins_version.split('.')[0] }}.{{ jenkins_version.split('.')[1] }}/latest/"
+
+
+# Option 2: configure 31_plugins.yml groupvars to specify
+#           exact plugins with static version
+#
+#- name: "Download Plugins"
+#  shell: "cd {{ juseppe_plugin_cache_dir }} ; wget -S --no-check-certificate \
+#         --retry-connrefused --waitretry=1 --connect-timeout=5 --read-timeout=5 \
+#         --dns-timeout=30 -t 5 -c --verbose \
+#         {{ plugin_url |d('https://updates.jenkins-ci.org') }}/download/plugins/{{ item.name }}/{{ item.version }}/{{ item.name }}.{{ item.extention | d('hpi') }}"
+#-  with_items:
+#-  - "{{ plugins }}"

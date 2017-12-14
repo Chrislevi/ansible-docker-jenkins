@@ -1,5 +1,6 @@
 work_dir: "{{ lookup('pipe','pwd').split('/playbooks')[0] }}"
 reqs_dir: "{{ work_dir }}/reqs"
 playbooks_dir: "{{ work_dir }}/playbooks"
+context_dir: "{{ role_path }}/context"
 
 internet_available: "{{ lookup('pipe', 'nslookup google.com > /dev/null || exit 0  && echo True') }}"

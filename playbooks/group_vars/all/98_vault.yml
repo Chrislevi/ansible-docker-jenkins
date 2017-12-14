@@ -1,0 +1,20 @@
+# localhost creds
+local_ssh:
+  username: "user"
+  password: "123123"
+
+# Jenkins github credentials
+github_user:
+  username: "Rick"
+  password: "Morty"
+
+# Jenkins gitlab credentials
+gitlab_user:
+  username: "root"
+  password: "password"
+
+# Default Jenkins Admin
+jenkins_admin:
+  username: "admin"
+  password: "admin"
+

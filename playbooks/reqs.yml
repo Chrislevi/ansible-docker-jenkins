@@ -1,6 +1,4 @@
 ---
 - hosts: localhost
-  become: yes
   roles:
   - reqs
-  - juseppe

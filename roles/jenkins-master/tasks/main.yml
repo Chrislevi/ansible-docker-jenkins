@@ -1,14 +1,29 @@
 ---
+# Purge flow, debug purpose
+#- shell: "docker ps -a -q | xargs docker {{ item }}"
+#  with_items:
+#  - "kill"
+#  - "rm -f"
+#  ignore_errors: true
+
+- name: "Prepare Jenkins-master build context"
+  import_tasks: context.yml
+
+- name: "Build Jenkins-Master image"
+  docker_image:
+    path: "{{ context_dir }}"
+    name: "{{ jenkins_container_image }}"
+    nocache: true
+    state: build
+    force: true
+
 - name: "Run Master container"
   docker_container:
-    name: "jenkins_master"
-    image: "jenkins/jenkins:lts"
+    name: "{{ jenkins_container_name }}"
+    image: "{{ jenkins_container_image }}:{{ jenkins_container_tag }}"
     state: started
     restart_policy: always
     restart: yes
     ports:
-    - 8080:8080
-    - 55555:55555
-    env:
-      JENKINS_VERSION: 2.75
-      JENKINS_UC:
+    - "{{ jenkins_port }}:{{ jenkins_port }}"
+    - "{{ jenkins_slave_port }}:{{ jenkins_slave_port }}"

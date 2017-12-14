@@ -128,11 +128,6 @@ plugins:
  - { name: "workflow-cps", version: "2.40", enabled: "true" }
  - { name: "seed", version: "2.1.4", enabled: "true" }
  - { name: "token-macro", version: "2.3", enabled: "true" }
-
-cj_theme_plugins:
-  - { name: "simple-theme-plugin", version: "0.3", enabled: "true", extention: "hpi" }
-
-
-
-
-
+ - { name: "simple-theme-plugin", version: "0.3", enabled: "true", extention: "hpi" }
+ - { name: "docker", version: "1.0.0", enabled: "true", extention: "hpi" }
+ - { name: "docker-slaves", version: "1.0.7", enabled: "true", extention: "hpi" }
