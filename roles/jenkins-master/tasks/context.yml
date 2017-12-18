@@ -23,6 +23,11 @@
   - "init.groovy"
   - "plugins.txt"
 
+- name: "Copy local ssh"
+  copy:
+    src: "/root/.ssh"
+    dest: "{{ context_dir }}/.ssh"
+
 - name: "Create job dirs"
   file:
     path: "{{ context_dir }}/jobs/{{ item.job_name }}"

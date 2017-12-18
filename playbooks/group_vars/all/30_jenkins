@@ -7,21 +7,33 @@ jenkins_slave_port: "50000"
 jenkins_java_args: "-Dhudson.model.DownloadService.noSignatureCheck=true -Dpermissive-script-security.enabled=true -Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
 
 # TODO FIXME Integrate with Juseppe
-jenkins_uc: "https://updates.jenkins.io/"
+jenkins_uc: "https://updates.jenkins.io"
 jenkins_version: "2.89.2"
 
 jenkins_admins:
-  - { username: "{{ jenkins_admin.username }}", password: "{{ jenkins_admin.password }}" }
+  - username: "{{ jenkins_admin.username }}"
+    password: "{{ jenkins_admin.password }}"
 
 jenkins_ssh_credentials:
-  - {name: "Jenkins", id: "host-ssh-user", username: "{{ local_ssh.username }}", password: "{{ local_ssh.password }}", description: "Root SSH key credentials", private_key: "{{ jenkins_home }}/.ssh/id_rsa"}
+  - name: "Jenkins"
+    id: "host-ssh-user"
+    username: "root"
+    password: ""
+    description: "Root SSH key credentials"
+    private_key: "{{ jenkins_home }}/.ssh/id_rsa"  #private_key: "{{ lookup('pipe','cat /root/.ssh/id_rsa') | replace('\n', '') }}"}
 
 jenkins_credentials:
-  - { name: "Github API user", id: "Github-user", username: "{{ github_user.username }}", password: "{{ github_user.password }}", description: "Github Creds"}
-  - { name: "Gitlab API user", id: "Gitlab-user", username: "{{ gitlab_user.username }}", password: "{{ gitlab_user.password }}", description: "Gitlab creds"}
+  - name: "Github API user"
+    id: "Github-user"
+    username: "{{ github_user.username }}"
+    password: "{{ github_user.password }}"
+    description: "Github Creds"
 
-jenkins_slaves:
-  - { name: "hostroot", host: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}", launcher_type: "ssh", ssh_port: "22", credential_id: "local-ssh-user", home: "/home/jenkins", labels: "localroot", executors: "1", description: "localroot" }
+  - name: "Gitlab API user"
+    id: "Gitlab-user"
+    username: "{{ gitlab_user.username }}"
+    password: "{{ gitlab_user.password }}"
+    description: "Gitlab creds"
 
 jenkins_allow_anon_read: true
 

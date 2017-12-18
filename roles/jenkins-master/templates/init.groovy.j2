@@ -151,8 +151,8 @@ Jenkins jenkins = Jenkins.instance
 
 for (Node node in jenkins.nodes) {
 
-{% for new_node in jenkins_slaves %}
-      if ("$node.nodeName" == "{{ new_node.name }}") {
+{% for new_node in groups['jenkins-slaves'] %}
+      if ("$node.nodeName" == "{{ hostvars[new_node].name }}") {
           continue;
       }
 {% endfor %}
@@ -162,8 +162,8 @@ for (Node node in jenkins.nodes) {
 }
 jenkins.save()
 
-{% for new_node in jenkins_slaves %}
-
+{% for slave in groups['jenkins-slaves'] %}
+{%   set new_node = hostvars[slave] %}
 {{ new_node.name }}: {
     def need_update=0
     for (Node node in jenkins.nodes) {

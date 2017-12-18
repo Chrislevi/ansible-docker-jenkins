@@ -15,6 +15,9 @@ ENV JAVA_OPTS {{ jenkins_java_args }}
 COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/init.groovy
 COPY --chown=jenkins:jenkins jobs  ${JENKINS_HOME}/jobs
 
+COPY --chown=jenkins:jenkins .ssh  ${JENKINS_HOME}/
+RUN chmod 600 ${JENKINS_HOME}/.ssh/id_rsa
+
 # Jenkins Theme
 COPY --chown=jenkins:jenkins material-amber.css ${JENKINS_HOME}/userContent/
 COPY --chown=jenkins:jenkins theme.js ${JENKINS_HOME}/userContent/

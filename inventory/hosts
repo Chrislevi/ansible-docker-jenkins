@@ -1,7 +1,15 @@
 [jenkins-master]
 master ansible_connection=local
 
-[jenkins-salves]
+[jenkins-slaves]
+slave01 ansible_host="10.0.0.1" credential_id="host-ssh-user" labels="localroot" executors=1 description="Local host slave"
+
+[jenkins-slaves:vars]
+launcher_type="ssh"
+ssh_port="22"
+host="{{ ansible_host }}"
+home="/home/jenkins"
+name="{{ inventory_hostname }}"
 
 [juseppe:children]
 jenkins-master
