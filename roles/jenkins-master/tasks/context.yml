@@ -25,7 +25,7 @@
 
 - name: "Copy local ssh"
   copy:
-    src: "/root/.ssh"
+    src: "/home/{{ jenkins_ssh_src }}/.ssh"
     dest: "{{ context_dir }}/.ssh"
 
 - name: "Create job dirs"

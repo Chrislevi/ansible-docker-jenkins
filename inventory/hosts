@@ -2,7 +2,7 @@
 master ansible_connection=local
 
 [jenkins-slaves]
-slave01 ansible_host="10.0.0.1" credential_id="host-ssh-user" labels="localroot" executors=1 description="Local host slave"
+slave01 ansible_host="10.0.0.1" credential_id="host-ssh-user" labels="localhost" executors=1 description="Local host slave"
 
 [jenkins-slaves:vars]
 launcher_type="ssh"
