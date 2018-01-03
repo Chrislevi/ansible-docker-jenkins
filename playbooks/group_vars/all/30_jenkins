@@ -62,4 +62,5 @@ github_jobs:
       refspec: '+refs/pull/${ghprbPullId}/*:refs/remotes/origin/pr/${ghprbPullId}/*'
       creds_id: "Github-user"
       branch: "${sha}"
+      jenkinsfile: "Jenkinsfile"
 
