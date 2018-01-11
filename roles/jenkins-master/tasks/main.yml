@@ -6,6 +6,19 @@
 #  - "rm -f"
 #  ignore_errors: true
 
+- name: "Install prereqs packages"
+  pip:
+    name: "{{ item }}"
+  with_items:
+  - docker-py
+
+- name: "Create WORKSPACE Directory"
+  file:
+    path: "/home/jenkins"
+    state: directory
+    group: "{{ jenkins_ssh_src }}"
+    owner: "{{ jenkins_ssh_src }}"
+
 - name: "Prepare Jenkins-master build context"
   import_tasks: context.yml
 

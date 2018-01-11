@@ -3,7 +3,7 @@ jenkins_group: "jenkins"
 jenkins_home: "/var/jenkins_home"
 jenkins_port: "8080"
 jenkins_slave_port: "50000"
-jenkins_ssh_src: "user"
+jenkins_ssh_src: "ubuntu"
 
 jenkins_java_args: "-Dhudson.model.DownloadService.noSignatureCheck=true -Dpermissive-script-security.enabled=true -Djava.awt.headless=true -Djenkins.install.runSetupWizard=false"
 

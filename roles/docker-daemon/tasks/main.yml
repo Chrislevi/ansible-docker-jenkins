@@ -6,7 +6,7 @@
 
     - name: "Add repository"
       apt_repository:
-        repo: 'deb {{ docker_repo }} {{ ansible_distribution_release }} stable'
+        repo: '{{ docker_repo }} {{ ansible_distribution_release }} stable'
         state: present
   when: internet_available | bool
 
