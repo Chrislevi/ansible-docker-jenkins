@@ -1,4 +1,7 @@
 ---
+- name: "Delete previous context files"
+  shell: 'rm -rf {{ context_dir }}/*'
+
 - name: "Copy context files"
   copy:
     src: "{{ item }}"

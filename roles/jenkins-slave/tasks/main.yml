@@ -1,0 +1,7 @@
+---
+- name: "Install Slave packages"
+  package:
+    name: "{{ item }}"
+  with_items:
+  - default-jre
+  - openssh-server
